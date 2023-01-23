@@ -1,1 +1,1 @@
-# alx-react
+# 0x02. React props
