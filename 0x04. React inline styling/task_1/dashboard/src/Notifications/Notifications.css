@@ -4,16 +4,6 @@
     right: 7px;
 }
 
-.Notifications {
-	border: 3px dotted var(--holberton-red);
-	padding: 6px 12px;
-    position: absolute;
-    top: 21px;
-    right: 7px;
-	margin-top: 12px;
-    z-index: 100;
-}
-
 li[data-priority="default"] {
 	color: blue;
 }
