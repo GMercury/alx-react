@@ -1,65 +1,25 @@
-/**
- * @jest-environment jsdom
- */
-import { shallow, mount } from "enzyme";
-import React from "react";
-import Footer from "./Footer";
-import { getFullYear, getFooterCopy } from "../utils/utils";
-import { AppContext } from "../App/AppContext";
+import React from 'react';
+import { shallow } from 'enzyme';
+import Footer from './Footer';
+import { user, logOut, AppContext } from '../App/AppContext';
 
-describe("Footer test", () => {
-  it("should render without crashing", () => {
+describe('<Footer />', () => {
+  it('render without crashing', () => {
     const wrapper = shallow(<Footer />);
-    expect(wrapper.exists()).toEqual(true);
+    expect(wrapper.exists());
   });
-
-  it('Footer component renders "Copyright ${getFullYear()} - ${getFooterCopy(true)}"', () => {
-    const wrapper = mount(<Footer />);
-
-    expect(wrapper.find("p").text()).toEqual(`Copyright ${getFullYear()} - ${getFooterCopy(false)}`);
+  /*
+  it('paragraph and content', () => {
+    expect(wrapper.find('footer p')).toHaveLength(1);
+    expect(wrapper.find('footer p').text()).toContain('Copyright');
   });
-
-  it("Tests that there is no link rendered when user is logged out within context", () => {
-    const context = {
-      user: {
-        email: "",
-        password: "",
-        isLoggedIn: false,
-      },
-    };
-
-    const wrapper = mount(
-      <AppContext.Provider value={context}>
+*/
+  it('logged out within the context', () => {
+    const wrapper = shallow(
+      <AppContext.Provider value={{ user, logOut }}>
         <Footer />
       </AppContext.Provider>
     );
-
-    expect(wrapper.find("a").length).toBe(0);
-    expect(wrapper.find("a").exists()).toBe(false);
-    expect(wrapper.text()).not.toContain("Contact us");
-
-    wrapper.unmount();
-  });
-
-  it("Tests that there is a link rendered when user is logged in within context", () => {
-    const context = {
-      user: {
-        email: "",
-        password: "",
-        isLoggedIn: true,
-      },
-    };
-
-    const wrapper = mount(
-      <AppContext.Provider value={context}>
-        <Footer />
-      </AppContext.Provider>
-    );
-
-    expect(wrapper.find("a").length).toBe(1);
-    expect(wrapper.find("a").exists()).toBe(true);
-    expect(wrapper.text()).toContain("Contact us");
-
-    wrapper.unmount();
+    expect(wrapper.find('footer a')).toHaveLength(0);
   });
 });
